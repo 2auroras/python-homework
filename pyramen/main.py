@@ -37,31 +37,35 @@ with open (csvsales, 'r') as csv_sales_file:
     header = next(csv_sales_file)
     
     for item in csvsalesreader:
-        sales_items.append([item[4],int(item[3])])
+        sales_items.append([item[4],item[3]])
         #sales_quantity.append(item[3])
 
 
 ## Report Dictionary
 report={}
-quantity = int(0)
-
-for item in menu:
-    key = item[0]
-    value = [float(item[1]),float(item[2]),float(item[1])-float(item[2]),quantity]
-    report[key] = value
-
-    for items in report:
-
-        for item in sales_items[0:10]:
-            if item[0] in report:
-                for item in sales_items:
-                    quantity += (item[1])
-                    value.append(quantity)
 
 
-print(report)
+for menu_item in menu:
+    quantity = int(0)
+    for sale in sales_items:
+        if menu_item[0] == sale[0]:
+            quantity += int(sale[1])
+
+    item_metrics = {'Price' :float(menu_item[1])},{'COGS' : float(menu_item[2])},{'Gross' : float(menu_item[1])-float(menu_item[2])},{'Number Sold' : quantity},{'Total Profit' : (quantity)*(float(menu_item[1])-float(menu_item[2]))} 
+
+    key = menu_item[0]
+
+    report[key] = item_metrics
+
+for key,item_metrics in report.items():
+    print(f"{key}\n{item_metrics}")
 
 
+
+
+
+    
+    
 
 
 
