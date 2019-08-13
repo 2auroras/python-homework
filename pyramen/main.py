@@ -62,16 +62,29 @@ for menu_item in menu:
     key = menu_item[0]
 
     report[key] = item_metrics
-##Wanted to filter out the menu items that have no sales, but am having trouble understanding how to access "Number Sold" value
-##Print all items and their profit
-for key,item_metrics in report.items():
-    print(f"{key}\n{item_metrics}")
+##Created two lists of dictionaries, one for items with sales and another for items that did not sell.  Printed both
+
+items_with_sales = []
+items_no_sales = []
+item_sold={}
+not_sold={}
 
 
+for key,value in report.items():
+    if (value[3]["Number Sold"]) > 0:
+        item_sold = key,value 
+        items_with_sales.append(item_sold)
+    else:
+        not_sold = key,value
+        items_no_sales.append(not_sold)
 
-
-
+print(items_with_sales)
+print()
+print(items_no_sales)
     
+
+
+
     
 
 
